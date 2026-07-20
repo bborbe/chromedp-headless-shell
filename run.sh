@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -ex
+
+echo "my run.sh"
+
+exec socat TCP4-LISTEN:9222,fork TCP4:127.0.0.1:9223 &
+
+exec /headless-shell/headless-shell \
+--disable-dev-shm-usage \
+--disable-gpu \
+--disable-software-rasterizer \
+--headless \
+--no-sandbox \
+--no-zygote \
+--remote-debugging-port=9223 \
+--user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36"
+
